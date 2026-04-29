@@ -25,5 +25,27 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = movement * speed;
+        HandleRotation();
+    }
+
+    void HandleRotation()
+    {
+        if (movement == Vector2.zero) return;
+
+        if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
+        {
+            if (movement.x > 0)
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            else
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else
+        {
+            // Atas / Bawah
+            if (movement.y > 0)
+                transform.rotation = Quaternion.Euler(0, 0, 90);   // atas
+            else
+                transform.rotation = Quaternion.Euler(0, 0, -90);  // bawah
+        }
     }
 }
